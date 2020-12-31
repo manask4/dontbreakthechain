@@ -2,7 +2,7 @@
   <div>
     <header class="text-gray-600 body-font">
       <div
-        class="container mx-auto flex flex-wrap py-8 px-0 flex-col md:flex-row justify-between items-center"
+        class="container mx-auto flex flex-wrap py-8 px-4 md:px-0 flex-col md:flex-row justify-between items-center"
       >
         <a
           class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
@@ -10,7 +10,7 @@
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 511.269 511.269"
-            class="w-16 h-16 text-white"
+            class="w-16 h-16 text-white -ml-2"
           >
             <path
               d="M140.367 465.067C116.9 438.4 93.434 410.667 78.5 377.6c-14.933-35.2-19.2-75.733-11.733-114.133s24.533-74.667 49.067-105.6c-2.133 26.667 7.467 54.4 25.6 74.667-10.667-51.2 6.4-106.667 40.533-147.2S263.034 18.133 312.1 0c-24.533 25.6-27.733 66.133-18.133 100.267 9.6 34.133 29.867 64 48 94.933 18.133 30.933 35.2 62.933 36.267 98.133 9.6-18.133 20.267-36.267 26.667-56.533 6.4-20.267 9.6-41.6 4.267-61.867 19.2 23.467 29.867 46.933 35.2 76.8 5.333 29.867 4.267 60.8 1.067 90.667-4.267 33.067-12.8 67.2-30.933 94.933-21.333 33.067-55.467 56.533-92.8 69.333C255.567 518.4 190.5 508.8 140.367 465.067z"
@@ -22,15 +22,15 @@
             />
           </svg>
           <div class="flex flex-col items-start">
-            <span class="ml-1 text-4xl font-mono font-bold text-indigo-700"
-              >2021 Progress</span
+            <span class="ml-1 text-xl md:text-4xl font-mono font-black text-indigo-700"
+              >Don't break the chain</span
             >
             <div class="flex flex-col md:flex-row items-start ml-1 text-sm font-sans italic text-indigo-500">
-              <span class="mr-2">Don't break the chain.</span>
+              <span class="mr-2">{{ new Date().getFullYear() }} Progression.</span>
               <span
                 >Project inspired from
                 <a
-                  class="text-pink-600"
+                  class="text-pink-600 self-start"
                   target="_blank"
                   href="https://jamesclear.com/stop-procrastinating-seinfeld-strategy"
                   >this article by James Clear.</a
