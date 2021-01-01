@@ -22,14 +22,13 @@
             />
           </svg>
           <div class="flex flex-col items-start">
-            <span
-              class="ml-1 text-xl md:text-4xl font-mono font-black text-indigo-700"
+            <span class="ml-1 text-2xl md:text-5xl font-black text-indigo-700"
               >Don't break the chain</span
             >
             <div
-              class="flex flex-col md:flex-row items-start ml-1 text-sm font-sans italic text-indigo-500"
+              class="flex flex-col md:flex-row items-start ml-1 text-sm font-serif italic text-indigo-500"
             >
-              <span class="mr-2"
+              <span class="mr-1"
                 >{{ new Date().getFullYear() }} Progression.</span
               >
               <span
@@ -43,7 +42,11 @@
               >
             </div>
             <div class="flex mt-2 ml-1 text-gray-600">
-              <a target="_blank" href="https://github.com/manask4/dontbreakthechain" class="bg-gray-200 rounded-full p-2">
+              <a
+                target="_blank"
+                href="https://github.com/manask4/dontbreakthechain"
+                class="bg-gray-200 rounded-full p-2"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -61,7 +64,11 @@
                   ></path>
                 </svg>
               </a>
-              <a target="_blank" href="https://twitter.com/manask18" class="ml-2 bg-gray-200 rounded-full p-2">
+              <a
+                target="_blank"
+                href="https://twitter.com/manask18"
+                class="ml-2 bg-gray-200 rounded-full p-2"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -84,9 +91,24 @@
         </div>
         <button
           @click="toggleDialog"
-          class="inline-flex items-center text-white bg-indigo-500 border-0 p-3 focus:outline-none hover:bg-indigo-400 shadow-md hover:shadow-lg transition-all rounded text-base mt-4 md:mt-0"
+          class="flex md:self-start items-center text-white bg-indigo-600 border-0 p-2 focus:outline-none hover:bg-indigo-500 shadow-md hover:shadow-lg transition-all rounded text-base mt-4 md:mt-0"
         >
-          Add Habits
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-plus h-6 w-6"
+          >
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span class="text-lg">Habits</span>
         </button>
       </div>
     </header>

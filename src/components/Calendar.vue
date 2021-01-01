@@ -1,21 +1,25 @@
 <template>
   <div>
-    <div class="habits flex flex-wrap px-10 mb-2">
+    <div class="flex flex-wrap px-10 mb-2">
       <span
-        class="m-2 px-2 py-1 text-sm bg-yellow-200 rounded-md cursor-pointer transition-all shadow-md"
+        class="m-2 px-3 py-2 text-sm bg-yellow-100 rounded-full cursor-pointer transition-all shadow-xl hover:shadow-lg"
         v-for="(habit, index) in habits"
         :key="index"
         @click="updateActiveHabit(habit)"
         :class="
-          activeHabit === habit ? 'bg-yellow-400' : 'text-gray-600'
+          activeHabit === habit ? 'bg-yellow-500 text-white' : 'text-yellow-600'
         "
         >{{ habit }}
       </span>
     </div>
-    <div class="flex flex-wrap justify-start px-10">
+    <div class="text-center flex flex-wrap justify-start px-10">
       <span
-        class="m-2 p-5 h-16 w-16 rounded-full border transition-all"
-        :class="{'bg-green-300': habitDone(n), 'bg-gray-100 text-gray-400': !isEnabled(n), 'cursor-pointer shadow-md hover:shadow-lg': isEnabled(n)}"
+        class="m-2 p-5 h-16 w-16 rounded-full border transition-all focus:outline-none"
+        :class="{
+          'bg-green-300': habitDone(n),
+          'bg-gray-100 text-gray-400': !isEnabled(n),
+          'cursor-pointer text-gray-700 shadow-md hover:shadow-lg': isEnabled(n),
+        }"
         v-for="n in 365"
         :key="n"
         @click="toggleHabitStreak(n)"
@@ -38,9 +42,9 @@ export default {
     };
   },
   computed: {
-    defaultHabit: function() {
-      return this.habits[0] || '';
-    }
+    defaultHabit: function () {
+      return this.habits[0] || "";
+    },
   },
   methods: {
     dateDiff() {
@@ -50,8 +54,8 @@ export default {
       const year = dateObj.getFullYear();
       const currentDate = year + "-" + month + "-" + day;
 
-      const startDate  = '2021-01-01';
-      const diffInMs   = new Date(currentDate) - new Date(startDate)
+      const startDate = "2021-01-01";
+      const diffInMs = new Date(currentDate) - new Date(startDate);
       const diffInDays = diffInMs / (1000 * 60 * 60 * 24) + 1;
       return diffInDays;
     },
@@ -60,7 +64,7 @@ export default {
     },
     toggleHabitStreak(day) {
       if (this.isEnabled(day)) {
-        this.$emit('toggleStreak', day, this.habitDone(day), this.activeHabit);
+        this.$emit("toggleStreak", day, this.habitDone(day), this.activeHabit);
       }
     },
     habitDone(day) {
@@ -70,15 +74,17 @@ export default {
     isEnabled(day) {
       const currentDay = this.dateDiff();
       return this.habits.length > 0 && currentDay >= day;
-    }
+    },
   },
   mounted() {
     this.activeHabit = this.defaultHabit;
   },
   watch: {
-    habits: function() {
-      this.activeHabit = this.activeHabit || this.habits[0];
-    }
+    habits: function () {
+      if (!this.habits.includes(this.activeHabit) || !this.activeHabit) {
+        this.activeHabit = this.habits[0];
+      }
+    },
   },
 };
 </script>

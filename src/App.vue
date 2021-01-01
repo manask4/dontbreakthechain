@@ -2,7 +2,13 @@
   <div id="app" class="bg-gray-100 min-h-screen">
     <Nav @toggle="toggleDialog" />
     <div :class="isDialogOpen ? 'block' : 'hidden'">
-      <add-habit-dialog @toggle="toggleDialog" @save="saveHabits" />
+      <add-habit-dialog
+        :habitStore="habits"
+        @remove="removeHabit"
+        @toggle="toggleDialog"
+        @save="saveHabits"
+        @saveEdit="saveEdit"
+      />
     </div>
     <div class="container mx-auto py-5 bg-white rounded-md shadow-md">
       <calendar
@@ -37,6 +43,37 @@ export default {
   methods: {
     toggleDialog() {
       this.isDialogOpen = !this.isDialogOpen;
+    },
+    saveEdit(latest, previous) {
+      let habitStore = localStorage.getItem("habits");
+      habitStore = habitStore !== null ? JSON.parse(habitStore) : [];
+      var index = habitStore.indexOf(previous);
+      if (index !== -1) {
+        habitStore[index] = latest;
+      }
+      localStorage.setItem("habits", JSON.stringify(habitStore));
+      this.habits = habitStore;
+
+      let habitStreak = localStorage.getItem("habitStreak");
+      habitStreak = habitStreak !== null ? JSON.parse(habitStreak) : {};
+      let habitStreakData = habitStreak[previous] ?? [];
+      delete habitStreak[previous];
+      habitStreak[latest] = habitStreakData;
+      localStorage.setItem("habitStreak", JSON.stringify(habitStreak));
+      this.habitStreak = habitStreak;
+    },
+    removeHabit(habit) {
+      let habitStore = localStorage.getItem("habits");
+      habitStore = habitStore !== null ? JSON.parse(habitStore) : [];
+      habitStore = habitStore.filter((item) => item !== habit);
+      localStorage.setItem("habits", JSON.stringify(habitStore));
+      this.habits = habitStore;
+
+      let habitStreak = localStorage.getItem("habitStreak");
+      habitStreak = habitStreak !== null ? JSON.parse(habitStreak) : {};
+      delete habitStreak[habit];
+      localStorage.setItem("habitStreak", JSON.stringify(habitStreak));
+      this.habitStreak = habitStreak;
     },
     saveHabits(userHabits) {
       let habitStore = localStorage.getItem("habits");
@@ -81,10 +118,7 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
 }
 </style>
