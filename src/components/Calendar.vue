@@ -14,8 +14,8 @@
     </div>
     <div class="flex flex-wrap justify-start px-10">
       <span
-        class="m-2 border border-gray-100 p-5 h-16 w-16 rounded-full shadow-sm hover:shadow-md cursor-pointer transition-all"
-        :class="habitDone(n) ? 'bg-green-300' : ''"
+        class="m-2 p-5 h-16 w-16 rounded-full border transition-all"
+        :class="{'bg-green-300': habitDone(n), 'bg-gray-100 text-gray-400': !isEnabled(n), 'cursor-pointer shadow-md hover:shadow-lg': isEnabled(n)}"
         v-for="n in 365"
         :key="n"
         @click="toggleHabitStreak(n)"
@@ -43,16 +43,34 @@ export default {
     }
   },
   methods: {
+    dateDiff() {
+      const dateObj = new Date();
+      const month = ("0" + dateObj.getMonth() + 1).slice(-2);
+      const day = ("0" + dateObj.getDate()).slice(-2);
+      const year = dateObj.getFullYear();
+      const currentDate = year + "-" + month + "-" + day;
+
+      const startDate  = '2021-01-01';
+      const diffInMs   = new Date(currentDate) - new Date(startDate)
+      const diffInDays = diffInMs / (1000 * 60 * 60 * 24) + 1;
+      return diffInDays;
+    },
     updateActiveHabit(habit) {
       this.activeHabit = habit;
     },
     toggleHabitStreak(day) {
-      this.$emit('toggleStreak', day, this.habitDone(day), this.activeHabit);
+      if (this.isEnabled(day)) {
+        this.$emit('toggleStreak', day, this.habitDone(day), this.activeHabit);
+      }
     },
     habitDone(day) {
       const habitData = this.habitStreak[this.activeHabit] ?? [];
       return habitData.includes(day);
     },
+    isEnabled(day) {
+      const currentDay = this.dateDiff();
+      return this.habits.length > 0 && currentDay >= day;
+    }
   },
   mounted() {
     this.activeHabit = this.defaultHabit;
